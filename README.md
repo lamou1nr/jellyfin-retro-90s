@@ -1,5 +1,8 @@
 <p align="center">
-  <img src="docs/good-boy-rick-labs.png" width="96" height="96" alt="Good Boy Rick Labs logo, a line drawing of a dog">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="docs/good-boy-rick-labs-dark.png">
+    <img src="docs/good-boy-rick-labs.png" width="440" alt="Good Boy Rick Labs">
+  </picture>
 </p>
 
 # Retro 90s for Jellyfin
@@ -200,6 +203,6 @@ their own license, the SIL Open Font License 1.1.
 
 ### Logo and name
 
-The Ricky logo (`docs/good-boy-rick-labs.png`) and the name Good Boy Rick Labs are not
+The Ricky logo (the `good-boy-rick-labs` image files in `docs/`) and the name Good Boy Rick Labs are not
 covered by the MIT license. You may keep and show them when you copy or share this project.
 You may not use them for any other project or product.

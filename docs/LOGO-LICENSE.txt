@@ -1,6 +1,8 @@
-The Ricky logo (good-boy-rick-labs.png in this folder) and the name
-Good Boy Rick Labs belong to Neil Lamoureux and are not covered by the MIT
-license that applies to the theme.
+The Ricky logo (the image files in this folder) and the name Good Boy Rick Labs
+belong to Neil Lamoureux and are not covered by the MIT license that applies to
+the theme.
 
 You may keep and show them when you copy or share this project.
 You may not use them for any other project or product.
+If you build something different from this theme, replace the logo and the name
+with your own.
