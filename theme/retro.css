@@ -1,0 +1,254 @@
+/*
+ * Retro 90s for Jellyfin 12, v1.2.0. Base layer: structure, type, ten-foot legibility, Amber palette.
+ * Optional imports after it: one palette (retro-arcade.css or retro-memphis.css), retro-banner.css (Now Showing),
+ * then retro-crt.css (scanlines etc.).
+ *
+ * Engine floor: webOS 5 (Chromium 68). Deliberately avoided: :is/:where/:has, clamp/min/max, flex gap,
+ * inset, aspect-ratio, logical properties, backdrop-filter, color-mix. Unknown values are simply dropped
+ * by the browser; no rule here depends on a newer feature for layout.
+ *
+ * Selectors come from the running 12.0.0 web client (desktop = MUI app bar + legacy pages, html.layout-desktop;
+ * TV/webOS = legacy .skinHeader, html.layout-tv). Colors are set through Jellyfin's own MUI variables
+ * (--jf-palette-*), so the legacy theme.css and the MUI shell both pick them up.
+ */
+
+/* ---------- fonts (OFL-1.1, @fontsource 5.3.0; licenses in fonts/) ---------- */
+@font-face { font-family: "VT323"; font-style: normal; font-weight: 400; font-display: swap;
+  src: url(fonts/vt323-latin-400-normal.woff2?v=1.2.0) format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "VT323"; font-style: normal; font-weight: 400; font-display: swap;
+  src: url(fonts/vt323-latin-ext-400-normal.woff2?v=1.2.0) format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+@font-face { font-family: "IBM Plex Mono"; font-style: normal; font-weight: 400; font-display: swap;
+  src: url(fonts/ibm-plex-mono-latin-400-normal.woff2?v=1.2.0) format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "IBM Plex Mono"; font-style: normal; font-weight: 400; font-display: swap;
+  src: url(fonts/ibm-plex-mono-latin-ext-400-normal.woff2?v=1.2.0) format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+@font-face { font-family: "IBM Plex Mono"; font-style: normal; font-weight: 500; font-display: swap;
+  src: url(fonts/ibm-plex-mono-latin-500-normal.woff2?v=1.2.0) format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "IBM Plex Mono"; font-style: normal; font-weight: 500; font-display: swap;
+  src: url(fonts/ibm-plex-mono-latin-ext-500-normal.woff2?v=1.2.0) format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+@font-face { font-family: "IBM Plex Mono"; font-style: normal; font-weight: 600; font-display: swap;
+  src: url(fonts/ibm-plex-mono-latin-600-normal.woff2?v=1.2.0) format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "IBM Plex Mono"; font-style: normal; font-weight: 600; font-display: swap;
+  src: url(fonts/ibm-plex-mono-latin-ext-600-normal.woff2?v=1.2.0) format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+@font-face { font-family: "IBM Plex Mono"; font-style: normal; font-weight: 700; font-display: swap;
+  src: url(fonts/ibm-plex-mono-latin-700-normal.woff2?v=1.2.0) format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "IBM Plex Mono"; font-style: normal; font-weight: 700; font-display: swap;
+  src: url(fonts/ibm-plex-mono-latin-ext-700-normal.woff2?v=1.2.0) format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+
+/* ---------- tokens + Jellyfin palette (html:root outranks MUI's ":root, [data-theme=...]") ---------- */
+/* Role tokens. A palette file (retro-arcade.css, retro-memphis.css) overrides only this first block.
+   Each color used inside rgba() also has an "r, g, b" (-rgb) form, and MUI's "r g b" (-ch) form. */
+html:root {
+  /* Amber (default): P3 phosphor on warm black; every text color is >= 9:1 against --retro-bg */
+  --retro-accent: #ffb000;  --retro-accent-rgb: 255, 176, 0;  --retro-accent-ch: 255 176 0;
+  --retro-accent-hi: #ffc84a;  --retro-accent-lo: #c98a00;  --retro-accent-deep: #4d3500;
+  --retro-accent-2: #ffc84a;   /* taglines, current time */
+  --retro-accent-3: #ffb000;   /* rating box */
+  --retro-focus: #ffb000;  --retro-focus-rgb: 255, 176, 0;  --retro-focus-ch: 255 176 0;
+  --retro-on-accent: #0b0906;  --retro-on-focus: #0b0906;  --retro-on-accent-ch: 11 9 6;
+  --retro-ink: #fff3dc;  --retro-ink-ch: 255 243 220;     /* titles, primary text  ~17:1 */
+  --retro-ink-2: #f2dfba;  --retro-ink-2-ch: 242 223 186; /* body + metadata       ~14:1 */
+  --retro-ink-3: #cdb88f;                                 /* labels                ~10:1 */
+  --retro-ink-4: #a8946f;                                 /* disabled */
+  --retro-bg: #0b0906;  --retro-bg-ch: 11 9 6;  --retro-bg-rgb: 11, 9, 6;
+  --retro-bg-2: #16110a;  --retro-bg-2-ch: 22 17 10;  --retro-bg-2-rgb: 22, 17, 10;
+  --retro-bg-3: #231b10;  --retro-bg-4: #33281a;
+  --retro-line: rgba(255, 176, 0, 0.30);
+  --retro-stripe: none;                                  /* header edge as a border-image, or none */
+  --retro-title: var(--retro-accent);                    /* section title color (palettes may rotate it) */ 
+  --retro-title-shadow: 0 0 0 transparent;               /* e.g. a chunky offset shadow */
+  --retro-glow-rgb: 255, 176, 0;                         /* CRT heading glow */
+  --retro-focus-shadow: 0 0 0.9em rgba(255, 176, 0, 0.45);  /* CRT focus bloom */
+  --retro-guide-sports: #7a3b12;  --retro-guide-movie: #5a2d4a;  --retro-guide-kids: #1f5a5a;  --retro-guide-news: #3f5a1f;
+  /* Reading text uses Jellyfin's own bundled Noto Sans (no extra download); mono is kept for data: years, times, chips. */
+  --retro-font-body: "Noto Sans", "Noto Sans HK", "Noto Sans JP", "Noto Sans KR", "Noto Sans SC", "Noto Sans TC", Arial, Helvetica, sans-serif;
+  --retro-font-mono: "IBM Plex Mono", "Courier New", monospace;
+  --retro-font-display: "VT323", "IBM Plex Mono", "Noto Sans", "Noto Sans HK", "Noto Sans JP", "Noto Sans KR", "Noto Sans SC", "Noto Sans TC", monospace;
+}
+/* Jellyfin's palette, derived from the role tokens (resolved on <html>, so a later palette file wins). */
+html:root {
+  --jf-palette-primary-main: var(--retro-accent);
+  --jf-palette-primary-light: var(--retro-accent-hi);
+  --jf-palette-primary-dark: var(--retro-accent-lo);
+  --jf-palette-primary-contrastText: var(--retro-on-accent);
+  --jf-palette-primary-mainChannel: var(--retro-accent-ch);
+  --jf-palette-primary-contrastTextChannel: var(--retro-on-accent-ch);
+  --jf-palette-secondary-main: var(--retro-focus);
+  --jf-palette-secondary-light: var(--retro-focus);
+  --jf-palette-secondary-dark: var(--retro-accent-lo);
+  --jf-palette-secondary-contrastText: var(--retro-on-focus);
+  --jf-palette-secondary-mainChannel: var(--retro-focus-ch);
+  --jf-palette-secondary-contrastTextChannel: var(--retro-on-accent-ch);
+  --jf-palette-background-default: var(--retro-bg);
+  --jf-palette-background-paper: var(--retro-bg-2);
+  --jf-palette-background-defaultChannel: var(--retro-bg-ch);
+  --jf-palette-background-paperChannel: var(--retro-bg-2-ch);
+  --jf-palette-background-defaultImage: none;
+  --jf-palette-text-primary: var(--retro-ink);
+  --jf-palette-text-secondary: var(--retro-ink-2);
+  --jf-palette-text-disabled: var(--retro-ink-4);
+  --jf-palette-text-icon: var(--retro-ink-3);
+  --jf-palette-text-primaryChannel: var(--retro-ink-ch);
+  --jf-palette-text-secondaryChannel: var(--retro-ink-2-ch);
+  --jf-palette-divider: rgba(var(--retro-accent-rgb), 0.22);
+  --jf-palette-action-active: var(--retro-accent-hi);
+  --jf-palette-action-hover: rgba(var(--retro-accent-rgb), 0.10);
+  --jf-palette-action-selected: rgba(var(--retro-accent-rgb), 0.18);
+  --jf-palette-action-focus: rgba(var(--retro-focus-rgb), 0.22);
+  --jf-palette-action-activeChannel: var(--retro-accent-ch);
+  --jf-palette-action-selectedChannel: var(--retro-accent-ch);
+  --jf-palette-AppBar-defaultBg: var(--retro-bg-2);
+  --jf-palette-AppBar-transparentBg: rgba(var(--retro-bg-rgb), 0.74);
+  --jf-palette-AppBar-gradient: none;
+  --jf-palette-FilledInput-bg: rgba(var(--retro-accent-rgb), 0.06);
+  --jf-palette-FilledInput-hoverBg: rgba(var(--retro-accent-rgb), 0.10);
+  --jf-palette-FilledInput-borderColor: rgba(var(--retro-accent-rgb), 0.38);
+  --jf-palette-Button-inheritContainedBg: var(--retro-bg-3);
+  --jf-palette-Button-inheritContainedHoverBg: var(--retro-bg-4);
+  --jf-palette-SnackbarContent-bg: var(--retro-bg-3);
+  --jf-palette-SnackbarContent-color: var(--retro-ink);
+  --jf-palette-Tooltip-bg: var(--retro-bg-3);
+  --jf-palette-LinearProgress-primaryBg: var(--retro-accent-deep);
+  --jf-palette-LinearProgress-secondaryBg: var(--retro-accent-deep);
+  --jf-palette-Slider-primaryTrack: var(--retro-accent-deep);
+  --jf-palette-Slider-secondaryTrack: var(--retro-accent-deep);
+  --jf-palette-Switch-primaryDisabledColor: var(--retro-accent-deep);
+  --jf-palette-Switch-secondaryDisabledColor: var(--retro-accent-deep);
+  --jf-palette-Alert-infoFilledBg: var(--retro-accent-deep);
+  --jf-palette-Alert-infoFilledColor: var(--retro-ink);
+  --jf-palette-info-main: var(--retro-accent-hi);
+  --jf-palette-info-dark: var(--retro-accent-deep);
+  --jf-card-borderRadius: 0;
+}
+
+/* ---------- type ---------- */
+html:root body { font-family: var(--retro-font-body); color: var(--retro-ink-2); letter-spacing: 0; }
+/* MUI components carry their own font-family; send them back to the body face (icons excluded). */
+html [class*="Mui"]:not(.material-icons) { font-family: inherit; }
+html button, html input, html select, html textarea { font-family: inherit; }
+/* Subtitles keep a proportional face; a font set in Jellyfin's subtitle settings (inline) still wins. */
+html .videoSubtitles, html .videoSecondarySubtitles { font-family: "Noto Sans", Arial, Helvetica, sans-serif; }
+
+html .sectionTitle, html .pageTitle, html .itemName, html .emby-tab-button, html .dialogHeaderTitle,
+html .formDialogHeaderTitle, html .headerTabs .emby-tab-button, html .listGroupHeader,
+html .verticalSection > h2, html .detailSectionHeader, html .MuiAppBar-root .MuiButton-root {
+  font-family: var(--retro-font-display);
+  font-weight: 400;
+  letter-spacing: 0.02em;
+}
+/* VT323 has a small x-height: scale display text up so it matches the body face optically. */
+html .sectionTitle { font-size: 1.95em; color: var(--retro-title); text-shadow: var(--retro-title-shadow); text-transform: uppercase; line-height: 1.05; }
+html .sectionTitleTextButton .material-icons { color: var(--retro-title); }
+html .pageTitle { font-size: 1.7em; color: var(--retro-accent); }
+html .itemName { color: var(--retro-ink); line-height: 1.05; }
+html .itemName.infoText:not(.parentName) { font-size: 3.4em; color: var(--retro-accent); }
+html .parentName, html .itemName.parentNameLast { color: var(--retro-ink); }
+html .emby-tab-button { font-size: 1.35em; text-transform: uppercase; color: var(--retro-ink-3); }
+html .emby-tab-button-active { color: var(--retro-accent); }
+html .MuiAppBar-root .MuiButton-root { font-size: 1.45em; line-height: 1.2; text-transform: uppercase; }
+
+/* Cards */
+html .cardText { color: var(--retro-ink); }
+html .cardText-first { font-weight: 600; }
+html .cardText-secondary { color: var(--retro-ink-3); font-family: var(--retro-font-mono); font-weight: 500; }
+html .cardImageContainer { box-shadow: inset 0 0 0 1px rgba(var(--retro-accent-rgb), 0.18); }
+html .cardBox:not(.visualCardBox) .cardPadder, html .visualCardBox { background-color: var(--retro-bg-3); }
+html .cardPadder .cardImageIcon { color: var(--retro-accent-lo); }
+html .defaultCardBackground1, html .defaultCardBackground2, html .defaultCardBackground3,
+html .defaultCardBackground4, html .defaultCardBackground5 { background-color: var(--retro-bg-3); }
+html .defaultCardBackground1 { background-image: linear-gradient(rgba(var(--retro-accent-rgb), 0.12), rgba(var(--retro-accent-rgb), 0.12)); }
+html .defaultCardBackground2 { background-image: linear-gradient(rgba(var(--retro-accent-rgb), 0.20), rgba(var(--retro-accent-rgb), 0.20)); }
+html .defaultCardBackground3 { background-image: linear-gradient(rgba(var(--retro-accent-rgb), 0.28), rgba(var(--retro-accent-rgb), 0.28)); }
+html .defaultCardBackground5 { background-image: linear-gradient(rgba(var(--retro-accent-rgb), 0.16), rgba(var(--retro-accent-rgb), 0.16)); }
+html .defaultCardBackground .cardImageIcon, html .cardImageIcon { color: var(--retro-ink); opacity: 0.9; }
+html .countIndicator, html .playedIndicator, html .mediaSourceIndicator, html .fullSyncIndicator { font-weight: 700; border-radius: 0; }
+html .itemProgressBar { background: rgba(var(--retro-accent-rgb), 0.18); }
+
+/* Detail pages: metadata is the thing read from the sofa, so it is never dimmed. */
+html .itemMiscInfo, html .itemMiscInfo .mediaInfoItem, html .endsAt { color: var(--retro-ink); font-family: var(--retro-font-mono); font-weight: 500; }
+html .mediaInfoOfficialRating, html .mediaInfoText { border-color: var(--retro-accent-3); color: var(--retro-accent-3); border-radius: 0; font-weight: 600; }
+html .tagline { color: var(--retro-accent-2); font-style: normal; font-weight: 600; }
+html .overview, html .overview-controls, html .detailsGroupItem .content, html .itemGenres, html .itemTags { color: var(--retro-ink-2); }
+html .overview { line-height: 1.55; }
+html .detailsGroupItem .label, html .trackSelections .selectLabel, html .itemTags > span:first-child { color: var(--retro-ink-3); }
+html .detailPagePrimaryContainer .itemName, html .detailPagePrimaryContainer .itemMiscInfo,
+html .detailPagePrimaryContainer .tagline, html .detailPageWrapperContainer .overview {
+  text-shadow: 0 1px 2px #000, 0 0 1px #000;   /* legible over bright backdrops */
+}
+html .backgroundContainer.withBackdrop { opacity: 0.9; }
+html .detailRibbon { background-color: rgba(var(--retro-bg-2-rgb), 0.86); }
+html.layout-tv .detailRibbon { background: none; }
+
+/* Buttons, inputs: square corners, chunky edges */
+html .emby-button, html .raised, html .fab, html .button-submit, html .MuiButton-root,
+html .emby-input, html .emby-textarea, html .emby-select-withcolor, html .MuiOutlinedInput-root,
+html .paperList, html .visualCardBox, html .formDialogFooter .emby-button { border-radius: 0; }
+html .button-submit { font-weight: 700; letter-spacing: 0.04em; }
+html .emby-select-withcolor, html .emby-select-withcolor > option { background: var(--retro-bg-2); }
+html .formDialogHeader:not(.formDialogHeader-clear), html .formDialogFooter:not(.formDialogFooter-clear),
+html .collapseContent, html .paperList, html .visualCardBox { background-color: var(--retro-bg-2); }
+html .formDialogHeader { border-bottom: 2px solid var(--retro-line); }
+html .actionSheet, html .dialog { background-color: var(--retro-bg-2); }
+html .actionSheetMenuItem:focus, html .listItem:focus { background-color: rgba(var(--retro-focus-rgb), 0.18); }
+
+/* Header + nav */
+html .skinHeader-withBackground, html .MuiAppBar-root.MuiAppBar-colorTransparent {
+  border-bottom: 3px solid var(--retro-line); border-image: var(--retro-stripe);
+}
+/* During playback the header slides off-screen but its bottom edge would stay on the video: drop it. */
+html.transparentDocument .skinHeader, html.transparentDocument .MuiAppBar-root { border-bottom-color: transparent; border-image: none; }
+html .MuiAppBar-root .MuiButton-root.Mui-selected, html .MuiAppBar-root .MuiButton-root[aria-current] { color: var(--retro-accent); }
+html .navMenuOption-selected { color: var(--retro-on-accent); }
+html .MuiDrawer-paper { background-color: var(--retro-bg-2); border-right: 2px solid var(--retro-line); }
+html .MuiListItemButton-root.Mui-selected { background-color: rgba(var(--retro-accent-rgb), 0.18); }
+html .MuiListItemButton-root.Mui-selected .MuiListItemText-primary { color: var(--retro-accent); }
+
+/* Live TV guide: distinct categories, warmer and dimmer than stock so white text stays readable */
+html .programCell-sports { background: var(--retro-guide-sports) !important; }
+html .programCell-movie { background: var(--retro-guide-movie) !important; }
+html .programCell-kids { background: var(--retro-guide-kids) !important; }
+html .programCell-news { background: var(--retro-guide-news) !important; }
+html .programCell-active { background: var(--retro-bg-3) !important; }
+html .programCell, html .guide-channelHeaderCell, html .channelPrograms { border-color: rgba(var(--retro-accent-rgb), 0.12); }
+html .guide-channelHeaderCell:focus, html .programCell:focus { background-color: var(--retro-focus) !important; color: var(--retro-on-focus) !important; }
+html .guide-date-tab-button.emby-tab-button-active, html .guide-date-tab-button:focus { color: var(--retro-accent-2); }
+html .timeslotHeaders, html .guide-date-tab-button, html .guide-programTimeSlot { font-family: var(--retro-font-mono); }
+html .guideProgramName { font-weight: 600; }
+
+/* Misc */
+::selection { background: var(--retro-accent); color: var(--retro-on-accent); }
+html *::-webkit-scrollbar-thumb:horizontal, html *::-webkit-scrollbar-thumb:vertical { background-color: var(--retro-accent-lo); border-radius: 0; }
+html *::-webkit-scrollbar-track-piece { background-color: var(--retro-bg-2); }
+html * { scrollbar-color: var(--retro-accent-lo) var(--retro-bg-2); }
+
+/* ---------- ten-foot (webOS / TV layout, 1920x1080 CSS px, base 27px) ---------- */
+html.layout-tv body { font-weight: 500; }
+html.layout-tv .cardText { font-size: 1em; }
+html.layout-tv .cardText-first { font-weight: 600; }
+html.layout-tv .cardText-secondary { font-size: 0.9em; color: var(--retro-ink-2); }
+html.layout-tv .sectionTitle { font-size: 2.1em; }
+html.layout-tv .emby-tab-button { font-size: 1.22em; letter-spacing: 0.01em; }
+html.layout-tv .itemMiscInfo { font-size: 1.05em; }
+html.layout-tv .itemName.infoText:not(.parentName) { font-size: 2.7em; white-space: normal; }   /* long titles wrap instead of truncating */
+html.layout-tv .overview { font-size: 1em; color: var(--retro-ink); }
+html.layout-tv .detailsGroupItem .label { color: var(--retro-ink-2); }
+html.layout-tv .currentTimeText { font-family: var(--retro-font-mono); font-size: 1.05em; font-weight: 600; color: var(--retro-accent-2); }
+/* Focus is the only cursor on a TV: make it unmistakable. */
+html.layout-tv .card.show-focus:focus .cardBox:not(.visualCardBox) .cardScalable,
+html.layout-tv .card.show-focus:focus .cardBox.visualCardBox { border-color: var(--retro-focus) !important; border-radius: 0 !important; }
+html.layout-tv .card:focus .cardText-first { color: var(--retro-focus); }
+html.layout-tv .emby-tab-button.show-focus:focus { color: var(--retro-on-focus); background-color: var(--retro-focus); }
+html.layout-tv .emby-button.show-focus:focus, html.layout-tv .paper-icon-button-light.show-focus:focus {
+  color: var(--retro-on-focus); background-color: var(--retro-focus); border-radius: 0;
+}
+html.layout-tv .listItem:focus { box-shadow: inset 0.3em 0 0 var(--retro-focus); }
+html.layout-tv .emby-select-withcolor:focus, html.layout-tv .emby-input:focus { border-color: var(--retro-focus) !important; }

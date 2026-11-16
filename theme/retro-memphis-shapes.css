@@ -1,0 +1,22 @@
+/*
+ * Retro 90s for Jellyfin 12, v1.2.0. Memphis shapes (optional; needs retro-memphis.css before it).
+ * One motif per section header, in the empty flank right of the title: never over cards, rows or the
+ * Now Showing artwork. Three motifs (wave + ring, triangle + zigzag, diamond + wave) rotate with the title
+ * colors; all drawn on one 120x30 grid, axis-aligned or 45 deg, 3 px non-scaling strokes, 45% opacity.
+ * Comment this import out to keep the Memphis type and palette without shapes.
+ */
+html .sectionTitleContainer::after,
+html .verticalSection > h2.sectionTitle::after {
+  content: "";
+  display: inline-block;
+  -webkit-flex-shrink: 0; flex-shrink: 0;
+  width: 4.6em; height: 1.15em;
+  margin-left: 0.9em;
+  vertical-align: middle;
+  background-image: var(--retro-motif);
+  background-repeat: no-repeat; background-position: left center; background-size: contain;
+  opacity: 0.45;
+  pointer-events: none;
+}
+html .verticalSection > h2.sectionTitle::after { width: 2.4em; height: 0.6em; margin-left: 0.5em; }
+html.layout-tv .sectionTitleContainer::after { width: 5.4em; height: 1.35em; }

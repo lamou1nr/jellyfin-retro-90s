@@ -1,0 +1,55 @@
+/*
+ * Retro 90s for Jellyfin 12, v1.2.0. Palette: Memphis (early-90s Memphis design:
+ * teal, hot pink, yellow, purple on dark navy). Import AFTER retro.css and BEFORE retro-crt.css.
+ * The geometric motifs are a separate import: retro-memphis-shapes.css.
+ * Contrast vs --retro-bg: ink 18:1, ink-2 15:1, ink-3 9:1, teal 11:1, pink 6.9:1, yellow 13:1.
+ */
+html:root {
+  --retro-accent: #1fd8c4;  --retro-accent-rgb: 31, 216, 196;  --retro-accent-ch: 31 216 196;
+  --retro-accent-hi: #6ae8da;  --retro-accent-lo: #138f82;  --retro-accent-deep: #0d4a44;
+  --retro-accent-2: #ff5ca8;
+  --retro-accent-3: #ffd23f;
+  --retro-focus: #ffd23f;  --retro-focus-rgb: 255, 210, 63;  --retro-focus-ch: 255 210 63;
+  --retro-on-accent: #0f1422;  --retro-on-focus: #0f1422;  --retro-on-accent-ch: 15 20 34;
+  --retro-ink: #fffaf0;  --retro-ink-ch: 255 250 240;
+  --retro-ink-2: #e9edf7;  --retro-ink-2-ch: 233 237 247;
+  --retro-ink-3: #b5bfd8;
+  --retro-ink-4: #8590ad;
+  --retro-bg: #0f1422;  --retro-bg-ch: 15 20 34;  --retro-bg-rgb: 15, 20, 34;
+  --retro-bg-2: #171e33;  --retro-bg-2-ch: 23 30 51;  --retro-bg-2-rgb: 23, 30, 51;
+  --retro-bg-3: #222a45;  --retro-bg-4: #2d3757;
+  --retro-line: rgba(255, 92, 168, 0.45);
+  --retro-stripe: linear-gradient(90deg, #1fd8c4 0%, #1fd8c4 25%, #ff5ca8 25%, #ff5ca8 50%, #ffd23f 50%, #ffd23f 75%, #9b6bff 75%, #9b6bff 100%) 1;
+  --retro-title: #1fd8c4;
+  --retro-title-shadow: 0 0.08em 0 rgba(0, 0, 0, 0.55);
+  --retro-glow-rgb: 31, 216, 196;
+  /* TV focus: a sticker-style hard offset instead of a glow */
+  --retro-focus-shadow: 0.3em 0.3em 0 #ff5ca8;
+  --retro-guide-sports: #11524d;  --retro-guide-movie: #4b2f7a;  --retro-guide-kids: #6b2348;  --retro-guide-news: #5a4a12;
+  --retro-banner-title: #ffd23f;
+  --retro-banner-title-shadow: 0 0.08em 0 rgba(0, 0, 0, 0.6);
+  --retro-motif: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 120 30%22%3E%3Cg fill=%22none%22 stroke-width=%223%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22 vector-effect=%22non-scaling-stroke%22%3E%3Cpath vector-effect=%22non-scaling-stroke%22 d=%22M4 15 q9 -10 18 0 t18 0 t18 0 t18 0%22 stroke=%22%23ff5ca8%22/%3E%3Ccircle vector-effect=%22non-scaling-stroke%22 cx=%22102%22 cy=%2215%22 r=%229%22 stroke=%22%23ffd23f%22/%3E%3C/g%3E%3C/svg%3E");   /* drawn only by retro-memphis-shapes.css */
+}
+/* Section titles take turns: teal/pink, yellow/purple, pink/teal (custom properties inherit into the title). */
+html .homeSectionsContainer > .verticalSection:nth-child(3n+2), html .homeSectionsContainer > div:nth-child(3n+2) .verticalSection,
+html .detailPageContent .verticalSection:nth-child(3n+2) { --retro-title: #ffd23f; --retro-title-shadow: 0 0.08em 0 rgba(0, 0, 0, 0.55); --retro-glow-rgb: 255, 210, 63;
+  --retro-motif: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 120 30%22%3E%3Cg fill=%22none%22 stroke-width=%223%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22 vector-effect=%22non-scaling-stroke%22%3E%3Cpolygon vector-effect=%22non-scaling-stroke%22 points=%226,25 18,5 30,25%22 stroke=%22%231fd8c4%22/%3E%3Cpolyline vector-effect=%22non-scaling-stroke%22 points=%2244,22 54,12 64,22 74,12 84,22 94,12 104,22 114,12%22 stroke=%22%239b6bff%22/%3E%3C/g%3E%3C/svg%3E"); }
+html .homeSectionsContainer > .verticalSection:nth-child(3n), html .homeSectionsContainer > div:nth-child(3n) .verticalSection,
+html .detailPageContent .verticalSection:nth-child(3n) { --retro-title: #ff5ca8; --retro-title-shadow: 0 0.08em 0 rgba(0, 0, 0, 0.55); --retro-glow-rgb: 255, 92, 168;
+  --retro-motif: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 120 30%22%3E%3Cg fill=%22none%22 stroke-width=%223%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22 vector-effect=%22non-scaling-stroke%22%3E%3Cpolygon vector-effect=%22non-scaling-stroke%22 points=%2216,5 26,15 16,25 6,15%22 stroke=%22%23ffd23f%22/%3E%3Cpath vector-effect=%22non-scaling-stroke%22 d=%22M40 15 q9 -10 18 0 t18 0 t18 0 t18 0%22 stroke=%22%231fd8c4%22/%3E%3C/g%3E%3C/svg%3E"); }
+html .itemName.infoText:not(.parentName) { color: #ffd23f; text-shadow: 0 0.08em 0 rgba(0, 0, 0, 0.6), 0 2px 10px rgba(0, 0, 0, 0.5); }
+html .tagline { color: #ff5ca8; }
+
+/* Metadata as chips on detail pages. */
+html .itemMiscInfo-primary .mediaInfoItem:not(.mediaInfoOfficialRating):not(.starRatingContainer):not(.mediaInfoCriticRating) {
+  border: 2px solid rgba(255, 250, 240, 0.35); padding: 0.02em 0.45em; margin-right: 0.6em;
+}
+/* Sticker Play button on detail pages. */
+html .mainDetailButtons .btnPlay { background-color: #ffd23f; color: #0f1422; border-radius: 0; box-shadow: 0.18em 0.18em 0 #ff5ca8; }
+html .mainDetailButtons .btnPlay .material-icons { color: #0f1422; }
+/* Cards hop up with a hard offset shadow on mouse hover (desktop only). */
+@media (hover: hover) and (pointer: fine) {
+  html .card-hoverable:hover .cardScalable { -webkit-transform: translate(-3px, -3px); transform: translate(-3px, -3px); box-shadow: 6px 6px 0 #ff5ca8; }
+}
+/* Striped progress bars. */
+html .itemProgressBarForeground { background-image: repeating-linear-gradient(45deg, #1fd8c4 0, #1fd8c4 6px, #ff5ca8 6px, #ff5ca8 12px); }

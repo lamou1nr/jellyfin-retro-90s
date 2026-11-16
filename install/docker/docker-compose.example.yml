@@ -1,0 +1,15 @@
+# Example: the official Jellyfin image with the Retro 90s theme files served by Jellyfin itself.
+# Only the "entrypoint" line and the "/retro-90s" volume are specific to the theme.
+services:
+  jellyfin:
+    image: jellyfin/jellyfin:12.0
+    container_name: jellyfin
+    entrypoint: ["/retro-90s/install/docker/entrypoint.sh"]
+    restart: unless-stopped
+    ports:
+      - "8096:8096"
+    volumes:
+      - /path/to/jellyfin-retro-90s:/retro-90s:ro   # this repository
+      - /path/to/config:/config
+      - /path/to/cache:/cache
+      - /path/to/media:/media:ro

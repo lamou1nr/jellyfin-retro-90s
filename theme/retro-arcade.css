@@ -1,0 +1,30 @@
+/*
+ * Retro 90s for Jellyfin 12, v1.2.0. Palette: Arcade (90s neon: magenta + cyan on deep indigo).
+ * Import AFTER retro.css and BEFORE retro-crt.css. Only role tokens and a few accents; no layout.
+ * Contrast vs --retro-bg: ink 18:1, ink-2 14:1, ink-3 8.6:1, magenta 6.5:1, cyan 13:1, yellow 15:1.
+ */
+html:root {
+  --retro-accent: #ff3fd0;  --retro-accent-rgb: 255, 63, 208;  --retro-accent-ch: 255 63 208;
+  --retro-accent-hi: #ff7ade;  --retro-accent-lo: #b02a90;  --retro-accent-deep: #4a1240;
+  --retro-accent-2: #36e6ff;
+  --retro-accent-3: #ffe14a;
+  --retro-focus: #36e6ff;  --retro-focus-rgb: 54, 230, 255;  --retro-focus-ch: 54 230 255;
+  --retro-on-accent: #0c0718;  --retro-on-focus: #0c0718;  --retro-on-accent-ch: 12 7 24;
+  --retro-ink: #fdf6ff;  --retro-ink-ch: 253 246 255;
+  --retro-ink-2: #e8ddff;  --retro-ink-2-ch: 232 221 255;
+  --retro-ink-3: #b8a6e3;
+  --retro-ink-4: #8d7cb8;
+  --retro-bg: #0c0718;  --retro-bg-ch: 12 7 24;  --retro-bg-rgb: 12, 7, 24;
+  --retro-bg-2: #160e2b;  --retro-bg-2-ch: 22 14 43;  --retro-bg-2-rgb: 22, 14, 43;
+  --retro-bg-3: #22173f;  --retro-bg-4: #2e2052;
+  --retro-line: rgba(54, 230, 255, 0.35);
+  --retro-stripe: linear-gradient(90deg, #ff3fd0, #8a5cff, #36e6ff) 1;
+  --retro-title: #ff3fd0;
+  --retro-title-shadow: 0 0.08em 0 rgba(0, 0, 0, 0.55);
+  --retro-glow-rgb: 255, 63, 208;
+  --retro-focus-shadow: 0 0 0.9em rgba(54, 230, 255, 0.55);
+  --retro-guide-sports: #10405a;  --retro-guide-movie: #4a1240;  --retro-guide-kids: #3a2a6b;  --retro-guide-news: #3d4a12;
+  --retro-banner-title: #36e6ff;
+  --retro-banner-title-shadow: 0 0.08em 0 rgba(0, 0, 0, 0.6);
+}
+html .itemName.infoText:not(.parentName) { text-shadow: 0 0.08em 0 rgba(0, 0, 0, 0.6), 0 2px 10px rgba(0, 0, 0, 0.5); }
