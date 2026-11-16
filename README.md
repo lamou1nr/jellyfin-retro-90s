@@ -131,8 +131,8 @@ Things to know:
 
 - Every browser that opens your Jellyfin will fetch the styles and fonts from jsDelivr, a
   public CDN. With Option 1 nothing is fetched from outside your server.
-- Loading the theme from a different address than Jellyfin's own was tested with a local
-  server. The jsDelivr addresses above have not been tested yet.
+- Tested on 2026-11-15 in Chromium 136 against Jellyfin 12.0.0: the styles and both fonts
+  load from jsDelivr with no errors in the browser console.
 
 ### Manual install (not tested)
 
